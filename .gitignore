@@ -1,0 +1,21 @@
+# Ambiente virtual
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dados: nunca versionados (regenerados pelo script de extração)
+data/*
+!data/.gitkeep
+
+# Modelos treinados (artefatos regeneráveis)
+models/
+
+# Segredos e credenciais (não usamos chave JSON, mas é defesa preventiva)
+.env
+*credentials*.json
+*-key.json
