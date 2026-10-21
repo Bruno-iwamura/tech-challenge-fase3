@@ -1,50 +1,50 @@
 coluna,familia,descricao,fonte
 id_municipio,id,Código IBGE do município (7 dígitos),IBGE
-nome_municipio,id,Nome do município,Gold
-indicador_alfabetizacao,alvo,"% de alunos alfabetizados ao fim do 2º ano, rede municipal (0–100), 2024",INEP/MEC — Indicador Criança Alfabetizada (via Gold)
-meta_alfabetizacao,meta,Meta municipal do indicador para 2024 (0–100),MEC (via Gold)
-atingiu_meta,meta,Indica se o município atingiu a meta municipal de 2024,Gold
-indicador_2023,historico,"Indicador de 2023, rede municipal (ausente para SP)",Gold
+nome_municipio,id,Nome do município,INEP — planilhas oficiais
+indicador_alfabetizacao,alvo,"% de alunos alfabetizados ao fim do 2º ano, rede municipal (0–100), 2024","INEP/MEC — Indicador Criança Alfabetizada (Silver, rede municipal)"
+meta_alfabetizacao,meta,Meta municipal do indicador para 2024 (0–100); ausente nos municípios sem meta publicada,MEC (via Gold)
+atingiu_meta,meta,Indica se o município atingiu a meta municipal de 2024; ausente sem meta,Gold
+indicador_2023,historico,"Indicador de 2023, rede municipal (ausente para SP)","INEP/MEC (Silver, rede municipal)"
 n_alunos,peso,Alunos avaliados na rede municipal em 2024,"Silver (deduplicada, rede municipal)"
-ter_regiao,ter,Grande região,IBGE
-ter_uf,ter,Sigla da UF,IBGE
-ce_alunos_turma_infantil,ce,Média de alunos por turma — educação infantil,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_alunos_turma_creche,ce,Média de alunos por turma — creche,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_alunos_turma_pre_escola,ce,Média de alunos por turma — pré-escola,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_alunos_turma_anos_iniciais,ce,Média de alunos por turma — anos iniciais,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_alunos_turma_1ano,ce,Média de alunos por turma — 1º ano,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_alunos_turma_2ano,ce,Média de alunos por turma — 2º ano,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_alunos_turma_multietapa,ce,Média de alunos por turma — turmas multietapa,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_horas_aula_infantil,ce,Média de horas-aula diárias — educação infantil,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_horas_aula_creche,ce,Média de horas-aula diárias — creche,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_horas_aula_pre_escola,ce,Média de horas-aula diárias — pré-escola,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_horas_aula_anos_iniciais,ce,Média de horas-aula diárias — anos iniciais,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_horas_aula_1ano,ce,Média de horas-aula diárias — 1º ano,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_horas_aula_2ano,ce,Média de horas-aula diárias — 2º ano,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_adeq_docente_infantil_g1,ce,% de docentes no grupo 1 de adequação da formação — educação infantil,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_adeq_docente_anos_iniciais_g1,ce,% de docentes no grupo 1 de adequação da formação — anos iniciais,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_adeq_docente_infantil_g2,ce,% de docentes no grupo 2 de adequação da formação — educação infantil,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_adeq_docente_anos_iniciais_g2,ce,% de docentes no grupo 2 de adequação da formação — anos iniciais,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_adeq_docente_infantil_g3,ce,% de docentes no grupo 3 de adequação da formação — educação infantil,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_adeq_docente_anos_iniciais_g3,ce,% de docentes no grupo 3 de adequação da formação — anos iniciais,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_adeq_docente_infantil_g4,ce,% de docentes no grupo 4 de adequação da formação — educação infantil,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_adeq_docente_anos_iniciais_g4,ce,% de docentes no grupo 4 de adequação da formação — anos iniciais,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_adeq_docente_infantil_g5,ce,% de docentes no grupo 5 de adequação da formação — educação infantil,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_adeq_docente_anos_iniciais_g5,ce,% de docentes no grupo 5 de adequação da formação — anos iniciais,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_regularidade_baixa,ce,% de escolas com regularidade docente baixa (0 a 2),INEP — Indicadores Educacionais 2023 (via Gold)
-ce_regularidade_media_baixa,ce,% de escolas com regularidade docente média-baixa (2 a 3),INEP — Indicadores Educacionais 2023 (via Gold)
-ce_regularidade_media_alta,ce,% de escolas com regularidade docente média-alta (3 a 4),INEP — Indicadores Educacionais 2023 (via Gold)
-ce_regularidade_alta,ce,% de escolas com regularidade docente alta (4 a 5),INEP — Indicadores Educacionais 2023 (via Gold)
-ce_distorcao_anos_iniciais,ce,Taxa de distorção idade-série — anos iniciais,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_distorcao_1ano,ce,Taxa de distorção idade-série — 1º ano,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_distorcao_2ano,ce,Taxa de distorção idade-série — 2º ano,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_aprovacao_anos_iniciais,ce,Taxa de aprovação — anos iniciais,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_reprovacao_anos_iniciais,ce,Taxa de reprovação — anos iniciais,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_abandono_anos_iniciais,ce,Taxa de abandono — anos iniciais,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_docentes_superior_infantil,ce,% de funções docentes com curso superior — educação infantil,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_docentes_superior_creche,ce,% de funções docentes com curso superior — creche,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_docentes_superior_pre_escola,ce,% de funções docentes com curso superior — pré-escola,INEP — Indicadores Educacionais 2023 (via Gold)
-ce_docentes_superior_anos_iniciais,ce,% de funções docentes com curso superior — anos iniciais,INEP — Indicadores Educacionais 2023 (via Gold)
+ter_regiao,ter,Grande região (derivada do código IBGE),IBGE
+ter_uf,ter,Sigla da UF (derivada do código IBGE),IBGE
+ce_alunos_turma_infantil,ce,Média de alunos por turma — educação infantil,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_alunos_turma_creche,ce,Média de alunos por turma — creche,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_alunos_turma_pre_escola,ce,Média de alunos por turma — pré-escola,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_alunos_turma_anos_iniciais,ce,Média de alunos por turma — anos iniciais,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_alunos_turma_1ano,ce,Média de alunos por turma — 1º ano,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_alunos_turma_2ano,ce,Média de alunos por turma — 2º ano,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_alunos_turma_multietapa,ce,"Média de alunos por turma — turmas unificadas, multietapa ou de correção de fluxo","INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_horas_aula_infantil,ce,Média de horas-aula diárias — educação infantil,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_horas_aula_creche,ce,Média de horas-aula diárias — creche,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_horas_aula_pre_escola,ce,Média de horas-aula diárias — pré-escola,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_horas_aula_anos_iniciais,ce,Média de horas-aula diárias — anos iniciais,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_horas_aula_1ano,ce,Média de horas-aula diárias — 1º ano,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_horas_aula_2ano,ce,Média de horas-aula diárias — 2º ano,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_adeq_docente_infantil_g1,ce,% de docentes no grupo 1 de adequação da formação — educação infantil,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_adeq_docente_infantil_g2,ce,% de docentes no grupo 2 de adequação da formação — educação infantil,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_adeq_docente_infantil_g3,ce,% de docentes no grupo 3 de adequação da formação — educação infantil,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_adeq_docente_infantil_g4,ce,% de docentes no grupo 4 de adequação da formação — educação infantil,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_adeq_docente_infantil_g5,ce,% de docentes no grupo 5 de adequação da formação — educação infantil,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_adeq_docente_anos_iniciais_g1,ce,% de docentes no grupo 1 de adequação da formação — anos iniciais,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_adeq_docente_anos_iniciais_g2,ce,% de docentes no grupo 2 de adequação da formação — anos iniciais,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_adeq_docente_anos_iniciais_g3,ce,% de docentes no grupo 3 de adequação da formação — anos iniciais,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_adeq_docente_anos_iniciais_g4,ce,% de docentes no grupo 4 de adequação da formação — anos iniciais,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_adeq_docente_anos_iniciais_g5,ce,% de docentes no grupo 5 de adequação da formação — anos iniciais,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_regularidade_baixa,ce,% de escolas com regularidade docente baixa (0 a 2),"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_regularidade_media_baixa,ce,% de escolas com regularidade docente média-baixa (2 a 3),"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_regularidade_media_alta,ce,% de escolas com regularidade docente média-alta (3 a 4),"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_regularidade_alta,ce,% de escolas com regularidade docente alta (4 a 5),"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_distorcao_anos_iniciais,ce,Taxa de distorção idade-série — anos iniciais,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_distorcao_1ano,ce,Taxa de distorção idade-série — 1º ano,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_distorcao_2ano,ce,Taxa de distorção idade-série — 2º ano,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_aprovacao_anos_iniciais,ce,Taxa de aprovação — anos iniciais,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_reprovacao_anos_iniciais,ce,Taxa de reprovação — anos iniciais,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_abandono_anos_iniciais,ce,Taxa de abandono — anos iniciais,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_docentes_superior_infantil,ce,% de funções docentes com curso superior — educação infantil,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_docentes_superior_creche,ce,% de funções docentes com curso superior — creche,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_docentes_superior_pre_escola,ce,% de funções docentes com curso superior — pré-escola,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
+ce_docentes_superior_anos_iniciais,ce,% de funções docentes com curso superior — anos iniciais,"INEP — Indicadores Educacionais 2023 (planilhas oficiais; localização Total, dependência Municipal)"
 soc_populacao,soc,População residente,IBGE — Censo Demográfico 2022 (Base dos Dados)
 soc_densidade,soc,Densidade demográfica (hab/km²),IBGE — Censo Demográfico 2022 (Base dos Dados)
 soc_moradores_domicilio,soc,Moradores por domicílio,IBGE — Censo Demográfico 2022 (Base dos Dados)
@@ -56,7 +56,7 @@ soc_pct_indigena,soc,% da população indígena (contexto de política educacion
 soc_pct_quilombola,soc,% da população quilombola (contexto de política educacional; não interpretar como causa),IBGE — Censo Demográfico 2022 (Base dos Dados)
 soc_pct_esgoto_rede,soc,"% da população com esgoto por rede geral, pluvial ou fossa ligada à rede",IBGE — Censo Demográfico 2022 (Base dos Dados)
 soc_pct_esgoto_precario,soc,"% da população com esgotamento precário (fossa rudimentar, vala, rio/lago/mar, outra forma, sem banheiro)",IBGE — Censo Demográfico 2022 (Base dos Dados)
-soc_pib_per_capita,soc,PIB per capita do município (R$),IBGE — PIB dos Municípios (via Gold)
+soc_pib_per_capita,soc,"PIB per capita do município, 2023 (R$)",IBGE — PIB dos Municípios 2023 ÷ população 2023 (Base dos Dados)
 fin_invest_aluno_educacao_basica,fin,Investimento educacional por aluno da educação básica (R$),"FNDE/SIOPE — indicadores municipais 2023, bimestre 6 (Base dos Dados)"
 fin_invest_aluno_fundamental,fin,Investimento educacional por aluno do ensino fundamental (R$),"FNDE/SIOPE — indicadores municipais 2023, bimestre 6 (Base dos Dados)"
 fin_invest_aluno_infantil,fin,Investimento educacional por aluno da educação infantil (R$),"FNDE/SIOPE — indicadores municipais 2023, bimestre 6 (Base dos Dados)"
