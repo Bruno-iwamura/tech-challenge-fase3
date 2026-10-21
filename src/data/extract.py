@@ -9,13 +9,14 @@ depois, localmente, sem custo.
 Controle de custo:
     - Antes de cada consulta é feita uma estimativa (dry run). Algumas tabelas
       não informam a estimativa; isso é sinalizado, e o teto continua valendo.
-    - --apenas-estimar mostra o custo de todas as fontes sem executar nada.
+    - --apenas-estimar mostra o custo das fontes sem executar nada.
+    - --fontes restringe a extração às fontes indicadas.
     - Toda consulta tem o teto de bytes faturados definido em bq_client.
 
 Uso:
-    python -m src.data.extract --apenas-estimar   # só estimativas, nada é executado
-    python -m src.data.extract                    # extrai o que ainda não existe
-    python -m src.data.extract --forcar           # reextrai tudo
+    python -m src.data.extract --apenas-estimar                 # só estimativas
+    python -m src.data.extract                                  # extrai o que ainda não existe
+    python -m src.data.extract --forcar --fontes silver_alunos  # reextrai fontes específicas
 """
 
 import argparse
@@ -30,6 +31,8 @@ from src.data.bq_client import (
     get_client,
     run_query,
 )
+from src.data.inep import ANO as ANO_INEP
+from src.data.inep import COLUNAS_INEP, LOCALIZACAO, REDES_EXTRAIDAS
 
 RAW_DIR = Path(__file__).resolve().parents[2] / "data" / "raw"
 
@@ -52,23 +55,52 @@ INDICADORES_FUNDEB = {
     "61": "pct_invest_aluno_pib_pc",
 }
 _IDS_FUNDEB_SQL = ", ".join(f"'{i}'" for i in INDICADORES_FUNDEB)
+_COLUNAS_INEP_SQL = ",\n          ".join(COLUNAS_INEP)
+_REDES_INEP_SQL = ", ".join(f"'{r}'" for r in REDES_EXTRAIDAS)
 
 FONTES = {
-    # Base da Gold: alvo (2024), metas e features do Censo Escolar (2023) + PIB per capita.
+    # Gold: metas municipais de 2024 e o enriquecimento anterior (usado só para validação).
     "gold_base": f"SELECT * FROM {T_GOLD_BASE}",
-    # Histórico do indicador (2023), para o enquadramento com defasagem (exceto SP).
+    # Histórico da Gold (mantido por rastreabilidade do notebook 01; a base não depende dele).
     "gold_evolucao": f"SELECT id_municipio, indicador_2023 FROM {T_GOLD_EVOL}",
-    # Número de alunos avaliados: Silver deduplicada (cópias idênticas, ver notebook 00),
-    # rede 3 = municipal, a mesma rede do alvo.
+    # Resultados da rede municipal (rede 3) por município e ano: alvo, histórico e alunos.
+    # Silver deduplicada: as cópias por join têm valores idênticos (ver notebook 00).
     "silver_alunos": f"""
         SELECT
           id_municipio,
           ano,
+          ANY_VALUE(indicador_alfabetizacao) AS indicador_alfabetizacao,
           ANY_VALUE(qtd_alunos) AS qtd_alunos,
           ANY_VALUE(peso_total) AS peso_total
         FROM {T_SILVER}
         WHERE rede = '3'
         GROUP BY id_municipio, ano
+    """,
+    # NÃO USAR COMO FEATURE: a carga de 2023 desta tabela tem colunas deslocadas
+    # (identidades composicionais violadas; notebook 01, seção 6.1). Mantida apenas
+    # como evidência. As features do Censo Escolar vêm das planilhas oficiais do INEP
+    # (src.data.download_inep + src.data.inep_oficial).
+    "inep_indicadores_2023": f"""
+        SELECT
+          id_municipio,
+          rede,
+          {_COLUNAS_INEP_SQL}
+        FROM `{BD}.br_inep_indicadores_educacionais.municipio`
+        WHERE ano = {ANO_INEP}
+          AND localizacao = '{LOCALIZACAO}'
+          AND rede IN ({_REDES_INEP_SQL})
+    """,
+    # PIB municipal (IBGE), vários anos: o ano usado é identificado na validação.
+    "ibge_pib": f"""
+        SELECT ano, id_municipio, pib
+        FROM `{BD}.br_ibge_pib.municipio`
+        WHERE ano >= 2019
+    """,
+    # População municipal (IBGE), vários anos: denominador do PIB per capita.
+    "ibge_populacao": f"""
+        SELECT ano, id_municipio, populacao
+        FROM `{BD}.br_ibge_populacao.municipio`
+        WHERE ano >= 2019
     """,
     # Censo 2022 agregado por município (uma linha por município).
     "censo2022_municipio": f"""
@@ -95,7 +127,7 @@ FONTES = {
         FROM `{BD}.br_ibge_censo_2022.alfabetizacao_grupo_idade_sexo_raca`
         GROUP BY id_municipio, grupo_idade, alfabetizacao
     """,
-    # Esgotamento sanitário por tipo (atenção: tipos com sobreposição, validar localmente).
+    # Esgotamento sanitário por tipo (tipos com sobreposição; ver notebook 01).
     "censo2022_esgotamento": f"""
         SELECT
           id_municipio,
@@ -164,15 +196,24 @@ def main() -> None:
         action="store_true",
         help="mostra as estimativas de custo sem executar nenhuma consulta",
     )
+    parser.add_argument(
+        "--fontes",
+        nargs="+",
+        choices=list(FONTES),
+        help="extrai apenas as fontes indicadas (padrão: todas)",
+    )
     args = parser.parse_args()
 
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     client = get_client()
+    fontes = args.fontes or list(FONTES)
 
     total = 0
     sem_estimativa = []
-    for nome, sql in FONTES.items():
-        n_bytes = extrair(nome, sql, client, forcar=args.forcar, apenas_estimar=args.apenas_estimar)
+    for nome in fontes:
+        n_bytes = extrair(
+            nome, FONTES[nome], client, forcar=args.forcar, apenas_estimar=args.apenas_estimar
+        )
         if n_bytes is None:
             sem_estimativa.append(nome)
         else:
