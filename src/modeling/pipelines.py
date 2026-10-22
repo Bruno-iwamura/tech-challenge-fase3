@@ -6,6 +6,9 @@ médias) do conjunto de validação/teste.
 
 Todos os pipelines terminam em uma etapa chamada "modelo", para que o ajuste
 ponderado seja uniforme: pipeline.fit(X, y, modelo__sample_weight=pesos).
+
+O transformador categórico só entra quando há features categóricas (nas
+ablações sem a família de território, não há nenhuma).
 """
 
 import numpy as np
@@ -45,29 +48,28 @@ def construir_logistica(features: list[str], C: float = 1.0) -> Pipeline:
     estruturais = [c for c in numericas if c in config.NULOS_ESTRUTURAIS]
     demais = [c for c in numericas if c not in log and c not in estruturais]
 
-    preprocessamento = ColumnTransformer(
-        [
-            ("log", Pipeline([
-                ("imputar", SimpleImputer(strategy="median")),
-                ("log1p", FunctionTransformer(_log1p_seguro, feature_names_out="one-to-one")),
-                ("padronizar", StandardScaler()),
-            ]), log),
-            ("estrutural", Pipeline([
-                ("imputar", SimpleImputer(strategy="median", add_indicator=True)),
-                ("padronizar", StandardScaler()),
-            ]), estruturais),
-            ("numerico", Pipeline([
-                ("imputar", SimpleImputer(strategy="median")),
-                ("padronizar", StandardScaler()),
-            ]), demais),
-            ("categorico", OneHotEncoder(handle_unknown="ignore", sparse_output=False),
-             colunas["categoricas"]),
-        ],
-        remainder="drop",
-    )
+    transformadores = [
+        ("log", Pipeline([
+            ("imputar", SimpleImputer(strategy="median")),
+            ("log1p", FunctionTransformer(_log1p_seguro, feature_names_out="one-to-one")),
+            ("padronizar", StandardScaler()),
+        ]), log),
+        ("estrutural", Pipeline([
+            ("imputar", SimpleImputer(strategy="median", add_indicator=True)),
+            ("padronizar", StandardScaler()),
+        ]), estruturais),
+        ("numerico", Pipeline([
+            ("imputar", SimpleImputer(strategy="median")),
+            ("padronizar", StandardScaler()),
+        ]), demais),
+    ]
+    if colunas["categoricas"]:
+        transformadores.append(
+            ("categorico", OneHotEncoder(handle_unknown="ignore", sparse_output=False), colunas["categoricas"])
+        )
 
     pipeline = Pipeline([
-        ("prep", preprocessamento),
+        ("prep", ColumnTransformer(transformadores, remainder="drop")),
         ("modelo", LogisticRegression(C=C, max_iter=2000)),
     ])
     return pipeline.set_output(transform="pandas")
@@ -90,15 +92,14 @@ def construir_hgb(
     """
     colunas = _separar_colunas(features)
 
-    preprocessamento = ColumnTransformer(
-        [
-            ("categorico", OrdinalEncoder(handle_unknown="use_encoded_value", unknown_value=np.nan),
-             colunas["categoricas"]),
-            ("numerico", "passthrough", colunas["numericas"]),
-        ],
-        remainder="drop",
-        verbose_feature_names_out=False,
-    )
+    transformadores = []
+    if colunas["categoricas"]:
+        transformadores.append(
+            ("categorico",
+             OrdinalEncoder(handle_unknown="use_encoded_value", unknown_value=np.nan),
+             colunas["categoricas"])
+        )
+    transformadores.append(("numerico", "passthrough", colunas["numericas"]))
 
     modelo = HistGradientBoostingClassifier(
         learning_rate=learning_rate,
@@ -106,10 +107,13 @@ def construir_hgb(
         max_leaf_nodes=max_leaf_nodes,
         min_samples_leaf=min_samples_leaf,
         l2_regularization=l2_regularization,
-        categorical_features=colunas["categoricas"],
+        categorical_features=colunas["categoricas"] or None,
         early_stopping=False,
         random_state=config.SEED,
     )
 
-    pipeline = Pipeline([("prep", preprocessamento), ("modelo", modelo)])
+    pipeline = Pipeline([
+        ("prep", ColumnTransformer(transformadores, remainder="drop", verbose_feature_names_out=False)),
+        ("modelo", modelo),
+    ])
     return pipeline.set_output(transform="pandas")
