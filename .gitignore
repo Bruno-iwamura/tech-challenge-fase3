@@ -19,3 +19,6 @@ models/
 .env
 *credentials*.json
 *-key.json
+
+# Modelos treinados (regeneráveis com python -m src.modeling.train)
+models/
